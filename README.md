@@ -22,5 +22,7 @@ It can be downloaded here
 
 Once done paste your riot api key inside the file "api_key.txt", start the league client, start summoner's stats, you're good to go!
 
+The riot API development keys last only a day, after this you need to regenerate them. If you plan to use the app regularly, on riot developpers website click "register product" then select "PERSONAL API KEY" and follow the instructions.
 
+Personnals api keys are the same as development keys but they do not expire so you dont need to regenerate the key everyday to use sumonner's stats. AFAIK riot is not restrictive about giving personal api keys so your requests should be allowed if you do them properly. In the meantime you can use your development key.
 
