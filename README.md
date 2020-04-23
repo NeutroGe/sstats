@@ -16,7 +16,7 @@ Here is a short demo of the app: https://www.youtube.com/watch?v=1z6y6mL0W08
 3. Click on (re)generate API key
 4. Copy your API key (it should be something like RGAPI-xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) and save it somewhere.
 
-DO NOT SHARE YOUR API KEY ANYWHERE WITH ANYONE IT'S PRIVATE AND FOR YOUR EYES ONLY
+Warning: do not share your api key with anyone, it's just for your personal use. If someone else needs one, they can generate one the same way you did.
 
 ### Download the app zip file and extract it on your computer
 
