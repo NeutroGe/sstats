@@ -7,6 +7,8 @@ There are others apps available that try to do the same thing like blitz.gg but 
 
 Here is a short demo of the app: https://www.youtube.com/watch?v=1z6y6mL0W08
 
+This app is safe to use and wont get you banned, it has been reviewed and allowed by riot (app ID 414403 on riot dev website).
+
 ## How to use
 
 ### Get your riot development api key
@@ -57,4 +59,6 @@ If you want to compile the app yourself, here is how:
 Warning: do not ask about summoner's stats in the official autoIT forums as they do not allow discussions about anything related to games inside. If you have anything to ask or say, please do it in our discord https://discord.gg/zYW5NAd
 
  
- 
+## Disclamer
+
+Summoner's stats isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
