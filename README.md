@@ -22,6 +22,8 @@ It can be downloaded here
 
 Once done paste your riot api key inside the file "api_key.txt", start the league client, start summoner's stats, you're good to go!
 
+If you prefer compiling the app yourself, i'll explain it later in this readme so keep reading or scroll down :)
+
 ## Getting a personal riot api key
 
 The riot API development keys last only a day, after this you need to regenerate them. If you plan to use the app regularly, on riot developpers website click "register product" then select "PERSONAL API KEY" and follow the instructions.
