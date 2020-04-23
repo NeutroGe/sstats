@@ -36,6 +36,7 @@ TrayCreateItem("Exit")
 TrayItemSetOnEvent(-1, "ExitApp")
 TraySetState($TRAY_ICONSTATE_SHOW)
 TraySetToolTip ("Summoner's stats")
+AutoItSetOption("WinTitleMatchMode", 3)
 
 
 ;app options are below
