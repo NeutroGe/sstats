@@ -30,3 +30,13 @@ The riot API development keys last only a day, after this you need to regenerate
 
 Personnals api keys are the same as development keys but they do not expire so you dont need to regenerate the key everyday to use sumonner's stats. AFAIK riot is not restrictive about giving personal api keys so your requests should be allowed if you do them properly. In the meantime you can use your development key.
 
+## API key limitations
+
+Development and personal riot api keys allows you to make 20 requests every 1 second and 100 requests every 2 minutes.
+
+This has consequences on how summoner's stat works: 
+
+ - the display of each player stats has a little delay to make sure the 20 requests per second limit is never reached,
+ - stats can only be displayed for 1 game every 2 minutes. If you try to do more than that (for example if someone dodges a game and you dont wait 2 mins) the app will display an error message.
+ 
+ 
