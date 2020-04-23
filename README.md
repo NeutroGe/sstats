@@ -43,6 +43,18 @@ This has consequences on how summoner's stat works:
  
 But once you know this and be careful about it the app does its job well.
 
+## How to compile the app yourself
+
+If you want to compile the app yourself, here is how:
+
+1. download and install autoit on your computer (around 10MB) - link: https://www.autoitscript.com/site/autoit/downloads/
+(optional) download and install "AutoIt Script Editor" (around 5MB) - https://www.autoitscript.com/site/autoit-script-editor/downloads/
+
+2. download the file "sstats.au3" that you can find in this repository and open it with autoit (right click on it -> edit)
+
+3. press ctrl+F7 on the autoit editor to open the compile window, eventually select the yuumi.ico file (available in this repository as well) if you want a nice icon then click "compile" which will generate the exe file of the app.
+
+Warning: do not ask about summoner's stats in the official autoIT forums as they do not allow discussions about anything related to games inside. If you have anything to ask or say, please do it in our discord https://discord.gg/zYW5NAd
 
  
  
