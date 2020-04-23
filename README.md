@@ -39,4 +39,8 @@ This has consequences on how summoner's stat works:
  - the display of each player stats has a little delay to make sure the 20 requests per second limit is never reached,
  - stats can only be displayed for 1 game every 2 minutes. If you try to do more than that (for example if someone dodges a game and you dont wait 2 mins) the app will display an error message.
  
+But once you know this and be careful about it the app does its job well.
+
+
+ 
  
