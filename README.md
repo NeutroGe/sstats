@@ -58,6 +58,9 @@ If you want to compile the app yourself, here is how:
 
 Warning: do not ask about summoner's stats in the official autoIT forums as they do not allow discussions about anything related to games inside. If you have anything to ask or say, please do it in our discord https://discord.gg/zYW5NAd
 
+## Contact
+
+https://discord.gg/zYW5NAd
  
 ## Disclamer
 
