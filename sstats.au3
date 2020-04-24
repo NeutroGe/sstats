@@ -571,7 +571,7 @@ While 1 ;until the software is closed, we start watching for games
 
 						if stringinstr($riot_API_summonerinfo_source, $summoner_name) = 0 Then
 
-							msgbox("","Error", "Impossible to find " & $summoner_name & " in the riot API query. This might mean that you need to download a newer version of summoners stats!")
+							msgbox("","Error", "Impossible to find " & $summoner_name & " in the riot API query. This probably means your API key is incorrect or has expired.")
 
 							Exit
 
