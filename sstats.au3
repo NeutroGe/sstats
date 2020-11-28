@@ -1517,6 +1517,14 @@ func get_champion_name($id)
 		return 'Pyke'
 		case 875
 		return 'Sett'
+		case 147
+		return 'Seraphine'
+		case 777
+		return 'Yone'
+		case 360
+		return 'Samira'
+		case 876
+		return 'Lillia'
 
 	EndSwitch
 
