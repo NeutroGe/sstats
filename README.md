@@ -7,7 +7,7 @@ There are others apps available that try to do the same thing like blitz.gg but 
 
 Here is a short demo of the app: https://www.youtube.com/watch?v=1z6y6mL0W08
 
-This app is safe to use and wont get you banned, it has been reviewed and allowed by riot (app ID 414403 on riot dev website).
+This app is safe to use. It has been reviewed and allowed by riot (app ID 414403 on riot dev website).
 
 ## How to use
 
