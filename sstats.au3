@@ -41,7 +41,7 @@ AutoItSetOption("WinTitleMatchMode", 3)
 
 ;app options are below
 
-$debug = 1 ;generates debug files if set to 1
+$debug = 0 ;generates debug files if set to 1
 $skip_local_player = 1 ;this should be always set to 1. Set only to 0 for debugging purposes (testing with custom games for example)
 $tempfile_location = @TempDir & "\sstats_temp.txt"
 $gui_img_location = @TempDir & "\sstats_gui.jpg"
