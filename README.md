@@ -56,7 +56,7 @@ If you want to compile the app yourself, here is how:
 
 3. press ctrl+F7 on the autoit editor to open the compile window, eventually select the yuumi.ico file (available in this repository as well) if you want a nice icon then click "compile" which will generate the exe file of the app.
 
-Warning: do not ask about summoner's stats in the official autoIT forums as they do not allow discussions about anything related to games inside. If you have anything to ask or say, please do it in our discord https://discord.gg/zYW5NAd
+Warning: do not ask about summoner's stats in the official autoIT forums as they do not allow discussions about anything related to games inside.
 
 ## Contact
 
