@@ -60,7 +60,7 @@ Warning: do not ask about summoner's stats in the official autoIT forums as they
 
 ## Contact
 
-https://discord.gg/zYW5NAd
+Leave a message in the discussions here in github!
  
 ## Disclamer
 
