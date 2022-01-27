@@ -41,7 +41,7 @@ AutoItSetOption("WinTitleMatchMode", 3)
 
 ;app options are below
 
-$debug = 0 ;generates debug files if set to 1
+$debug = 1 ;generates debug files if set to 1
 $skip_local_player = 1 ;this should be always set to 1. Set only to 0 for debugging purposes (testing with custom games for example)
 $tempfile_location = @TempDir & "\sstats_temp.txt"
 $gui_img_location = @TempDir & "\sstats_gui.jpg"
@@ -168,36 +168,47 @@ switch $region
 
 	case "NA"
 		$api_platform = "na1"
+	    $api_match_platform = "americas"
 
 	case "EUW"
 		$api_platform = "euw1"
+		$api_match_platform = "europe"
 
 	case "EUNE"
 		$api_platform = "eun1"
+		$api_match_platform = "europe"
 
 	case "LAN"
 		$api_platform = "la1"
+		$api_match_platform = "americas"
 
 	case "LAS"
 		$api_platform = "la2"
+		$api_match_platform = "americas"
 
 	case "BR"
 		$api_platform = "br1"
+		$api_match_platform = "americas"
 
 	case "JP"
 		$api_platform = "jp1"
+		$api_match_platform = "asia"
 
 	case "RU"
 		$api_platform = "ru"
+		$api_match_platform = "europe"
 
 	case "TR"
 		$api_platform = "tr1"
+		$api_match_platform = "europe"
 
 	case "OCE"
 		$api_platform = "oc1"
+		$api_match_platform = "asia"
 
 	case "KR"
 		$api_platform = "kr"
+		$api_match_platform = "asia"
 
 EndSwitch
 
@@ -585,6 +596,12 @@ While 1 ;until the software is closed, we start watching for games
 
 						if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", $encrypted_account_id & "," & @CRLF)
 
+						;getting account puuid
+
+						$account_puuid = find_data_value_in_json($riot_API_summonerinfo_source, "puuid", true)
+
+						if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", $account_puuid & "," & @CRLF)
+
 						;getting encrypted summoner id
 
 						$encrypted_summoner_id = find_data_value_in_json($riot_API_summonerinfo_source, "id", true)
@@ -627,11 +644,11 @@ While 1 ;until the software is closed, we start watching for games
 
 						;getting the player's last 20 ranked matches list from riot API
 
-						$riot_API_matchlist = _INetGetSource("https://" & $api_platform & ".api.riotgames.com/lol/match/v4/matchlists/by-account/" & $encrypted_account_id & "?queue=420&endIndex=20&api_key=" & $api_key)
+						$riot_API_matchlist = _INetGetSource("https://" & $api_match_platform & ".api.riotgames.com/lol/match/v5/matches/by-puuid/" & $account_puuid & "/ids?queue=420&start=0&count=20&api_key=" & $api_key)
 
 						;extracting the id of all matches
 
-						StringRegExpReplace($riot_API_matchlist, "gameId", "gameId")
+						StringRegExpReplace($riot_API_matchlist, "EUW1", "EUW1")
 
 						;checking if there are at least one previous ranked solo/duo game played, otherwise it's the first ranked game ever (new account) so we display this information on the gui
 
@@ -657,20 +674,33 @@ While 1 ;until the software is closed, we start watching for games
 
 						$recently_played_with = "" ;used later
 
+							;extracting matches ID from $riot_API_matchlist
+
+							;removing useless punctuation in the returned file list (thanks riot for not json complient)
+
+							$riot_API_matchlist = StringReplace($riot_API_matchlist, "[", "")
+
+							$riot_API_matchlist = StringReplace($riot_API_matchlist, "]", "")
+
+							$riot_API_matchlist = StringReplace($riot_API_matchlist, '"', "")
+
+							$riot_API_matchlist = StringSplit($riot_API_matchlist, ",")
+
 						;ok we now have the list of the 20 last previous games played so we start retreiving the JSON source for each of these matches from the riot API and parse them to extract the information we need
 
 						for $j = 1 to $matches_count step 1 ; for each match in the player 20 last previously ranked solo/duo matches list
 
 						;for $j = 1 to 1 step 1
 
+							;$match_id = find_data_value_in_json($riot_API_matchlist, "gameId", false, $j)       => OLD WAY BEFORE RIOT CHANGED TO MATCH V5 INSTEAD OF MATCH V4 - DOES NOT WORK ANYMORE
 
-							$match_id = find_data_value_in_json($riot_API_matchlist, "gameId", false, $j)
+							$match_id = $riot_API_matchlist[$j]
 
 							if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", $match_id & @CRLF)
 
 							if FileExists(@tempdir & "\temp2") then FileDelete(@tempdir & "\temp2")
 
-							InetGet("https://" & $api_platform & ".api.riotgames.com/lol/match/v4/matches/" & $match_id & "?api_key=" & $api_key, @tempdir & "\temp2")
+							InetGet("https://" & $api_match_platform & ".api.riotgames.com/lol/match/v5/matches/" & $match_id & "?api_key=" & $api_key, @tempdir & "\temp2")
 
 							$tempfile = FileOpen(@tempdir & "\temp2")
 
@@ -718,34 +748,43 @@ While 1 ;until the software is closed, we start watching for games
 
 							Next
 
+							; ----------------------------------------------------------------------
 
-						    ;finding the participantId corresponding to the summoner's name
+						    ; OLD
 
-							$participant_id = find_data_value_in_json($match_stats, "participantId", false, -1, $encrypted_summoner_id)
+;~ 						    ;finding the participantId corresponding to the summoner's name
 
-							if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", "participantid : " & $participant_id & @CRLF)
+;~ 							$participant_id = find_data_value_in_json($match_stats, "participantId", false, 1, $encrypted_summoner_id)
 
-							if $participant_id = 1 AND stringmid($match_stats, $index3 + 16, 1) = "0" then $participant_id = 10 ;dirty hack if summonerid is 10
+;~ 							if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", "participantid : " & $participant_id & @CRLF)
 
-							;getting the stats from the player for the current match: champion played, kills, deaths, ...
+;~ 							if $participant_id = 1 AND stringmid($match_stats, $index3 + 16, 1) = "0" then $participant_id = 10 ;dirty hack if summonerid is 10
 
-							$champion_id = find_data_value_in_json($match_stats, "championId", false, 1, "participants", '"participantId":' & $participant_id)
+;~ 							;getting the stats from the player for the current match: champion played, kills, deaths, ...
+
+                            ;--------------
+
+							;dev info : if in the json return file the name of the info that we are looking for is alphabetically before "summonerName" then 3rd function arg is -1, otherwise it's 1
+
+							$champion_id = find_data_value_in_json($match_stats, "championId", false, -1, 0, $summoner_name)
+
+							$participant_id = 0
 
 							if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", $champion_id & " - " & get_champion_name($champion_id) & @CRLF)
 
-							$kills = find_data_value_in_json($match_stats, "kills", false, 1, "participants", '"participantId":' & $participant_id)
+							$kills = find_data_value_in_json($match_stats, "kills", false, -1, 0, $summoner_name)
 
 							if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", "kills : " & $kills & @CRLF)
 
-							$deaths = find_data_value_in_json($match_stats, "deaths", false, 1, "participants", '"participantId":' & $participant_id)
+							$deaths = find_data_value_in_json($match_stats, "deaths", false, -1, 0, $summoner_name)
 
 							if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", "deaths: " & $deaths & @CRLF)
 
-							$assists = find_data_value_in_json($match_stats, "assists", false, 1, "participants", '"participantId":' & $participant_id)
+							$assists = find_data_value_in_json($match_stats, "assists", false, -1, 0, $summoner_name)
 
 							if $debug = 1 then  filewrite(@scriptdir & "\data\summoner" & $i & ".txt", "assists : " & $assists & @CRLF)
 
-							$win = find_data_value_in_json($match_stats, "win", false, 1, "participants", '"participantId":' & $participant_id)
+							$win = find_data_value_in_json($match_stats, "win", false, 1, 0, $summoner_name)
 
 							if $win = "true" then $win = 1
 
@@ -958,6 +997,17 @@ While 1 ;until the software is closed, we start watching for games
 
 		    for $i = 0 to 4 step 1
 
+				$gui_temp = eval("summoner" & $i + 1 & "_gui")
+
+				$gui_temp_data = _GUICtrlRichEdit_GetText($gui_temp)
+
+				if stringinstr($gui_temp_data, "No ranked games previously played") <> 0 Then
+
+					;no previous games played, skipping player
+					ContinueLoop
+
+				EndIf
+
 				if $i = $local_player_cell_ID OR $i = $local_player_cell_ID - 5 AND $skip_local_player = 1 Then ;skipping local player
 
 					if $debug = 1 then  FileWrite(@scriptdir & "\data\lcu.txt", @CRLF & "skipping loop " & $i & " local_player_cell_ID " & $local_player_cell_ID & @CRLF)
@@ -965,13 +1015,13 @@ While 1 ;until the software is closed, we start watching for games
 
 				EndIf
 
+
+
 				$array = eval("summoner" & $i + 1)
 
 				;_ArrayDisplay($array)
 
-				$gui_temp = eval("summoner" & $i + 1 & "_gui")
 
-				$gui_temp_data = _GUICtrlRichEdit_GetText($gui_temp)
 
 				;the id of the players of the team depends of the id of the cell of the local player, so we only search for picks of players of the same team (team 1: 0 to 4 - team 2: 5 to 9)
 
@@ -1525,8 +1575,19 @@ func get_champion_name($id)
 		return 'Samira'
 		case 876
 		return 'Lillia'
+		case 221
+		return 'Zeri'
+		case 234
+		return 'Viego'
+		case 777
+		return 'Yone'
+		case 711
+		return 'Vex'
+		case 526
+		return 'Rell'
+		case 887
+		return 'Gwen'
 
 	EndSwitch
 
 EndFunc
-
