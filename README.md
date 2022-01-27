@@ -7,7 +7,7 @@ There are others apps available that try to do the same thing like blitz.gg but 
 
 Here is a short demo of the app: https://www.youtube.com/watch?v=1z6y6mL0W08
 
-This app is safe to use. It has been reviewed and allowed by riot (app ID 414403 on riot dev website). In other words: you will never get banned for using this.
+This app is safe to use. It has been reviewed and allowed by riot (app ID 414403 on riot dev website). In other words: you will never get banned for using this. The binaries (.exe) are downloadable from the right side of this page. Some antivirus may trigger a false positive, if this happens please report it to me here. If your antivirus tells you this file is a virus it's 100% a false positive, it's the exact same code you can find here compiled into an .exe file, nothing hidden, nothing malicious. I also give the instructions on how to compile it yourself if you prefer.
 
 ## How to use
 
