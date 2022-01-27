@@ -22,7 +22,7 @@ Warning: do not share your api key with anyone, it's just for your personal use.
 
 ### Download the app zip file and extract it on your computer
 
-It can be downloaded here : https://github.com/NeutroGe/sstats/releases/download/v1.0/sstats1.0.zip
+It can be downloaded here : https://github.com/NeutroGe/sstats/releases/download/v1.2/sstats-1.2.zip
 
 Once done paste your riot api key inside the file "api_key.txt", start the league client, start summoner's stats, you're good to go!
 
