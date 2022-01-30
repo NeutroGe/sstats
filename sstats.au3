@@ -1587,6 +1587,8 @@ func get_champion_name($id)
 		return 'Rell'
 		case 887
 		return 'Gwen'
+		case 166
+		return 'Akshan'
 
 	EndSwitch
 
